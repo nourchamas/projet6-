@@ -159,21 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-       
-/*
- Fonction pour ajouter un nouveau projet à la galerie
-function addProjectToGallery(project) {
-  const figure = document.createElement("figure");
-  const img = document.createElement("img");
-  img.src = project.imageUrl;
-  img.alt = project.title;
-  const figcaption = document.createElement("figcaption");
-  figcaption.textContent = project.title;
-  figure.appendChild(img);
-  figure.appendChild(figcaption);
-  imageGallery.appendChild(figure); // Ajoutez le nouvel élément à la galerie existante
-}
-*/
+
 
 
 

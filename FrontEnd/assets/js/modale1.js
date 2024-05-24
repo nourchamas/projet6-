@@ -1,8 +1,10 @@
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {*/
     // Sélection de la première modale
+   
+   
     const premiereModale = document.getElementById('modale1');
 
     // Sélection du bouton pour ouvrir la première modale
@@ -53,14 +55,21 @@ document.addEventListener('DOMContentLoaded', function() {
           figure.appendChild(img);
           figure.appendChild(icon);
           imageGallery.appendChild(figure);
+
+icon.addEventListener("click",function (){
+deleteWork(image.id);
+console.log( image.id);
+
+});
+
         });
         
     }
 
     
-    const worksApiUrl = "http://localhost:5678/api/works"; 
+    const worksApiUrl1 = "http://localhost:5678/api/works"; 
 // Fetch works
-fetch(worksApiUrl)
+fetch(worksApiUrl1)
   .then((response) => {
     if (!response.ok) {
       throw new Error("Erreur de réseau");
@@ -70,13 +79,11 @@ fetch(worksApiUrl)
   .then((images) => {
    afficherImagesDansGalerie(images);
   })
-  .catch((error) => {
+  .catch((error)=> {
     console.error("Erreur de récupération des images: " + error);
   });
 
    
-
-});
 
 /*croix x fermer modale 1*/
 // Récupérer l'élément de la croix
@@ -116,3 +123,26 @@ function ouvrirModale1() {
     const modale1 = document.getElementById("modale1");
     modale1.style.display = "block";
 }
+
+
+// Fonction pour supprimer un travail
+function deleteWork(workId) {
+    fetch("http://localhost:5678/api/works/"+ workId, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+"Authorization":"Bearer " +localStorage.getItem("token")
+            // Ajoutez d'autres en-têtes si nécessaire
+        },
+        // Ajoutez un corps de demande si nécessaire
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('La suppression du travail a échoué');
+        }
+        // Actualiser le DOM ou effectuer d'autres actions après la suppression réussie
+    })
+    .catch(error => {
+        console.error('Erreur lors de la suppression du travail:', error);
+    });
+  }
